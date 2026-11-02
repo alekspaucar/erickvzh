@@ -34,7 +34,7 @@ themeButton.addEventListener('click', event => {
  document.startViewTransition(apply).ready.then(() => document.documentElement.animate({clipPath:[`circle(0px at ${x}px ${y}px)`,`circle(${radius}px at ${x}px ${y}px)`]},{duration:650,easing:'ease-in-out',pseudoElement:'::view-transition-new(root)'}));
 });
 // Timed letter evaporation. Hover never scrambles the copy.
-const roles = [['Diseñador de','plataformas web'],['Desarrollador','full stack'],['Sistemas, APIs','e infraestructura']];
+const roles = [['Todo empezó','con una computadora.'],['Desarrollo','plataformas web'],['La curiosidad','sigue intacta.'],['Desarrollador','full stack'],['Ahora construyo','mis propias ideas.'],['Sistemas, APIs','e infraestructura']];
 const title = $('#animated-role');let roleIndex=0, rolePhase=0, titleTimer;
 function paintTitle(phase='') {
  title.replaceChildren();let n=0;
