@@ -43,10 +43,6 @@ paintTitle();if(!reduced.matches)titleCycle();reduced.addEventListener('change',
 window.initPortfolioAvatar($('#avatar-art'),reduced);
 // Accordion copy, exactly one expanded highlight at a time.
 $$('.highlight').forEach(button=>button.addEventListener('click',()=>{$$('.highlight').forEach(other=>{const active=button===other;other.classList.toggle('expanded',active);other.setAttribute('aria-expanded',String(active))})}));
-const hold=$('#hold-about');let holdTimer,holding=false;
-function finishHold(){if(!holding)return;holding=false;clearTimeout(holdTimer);hold.classList.remove('holding');$('.hold-label').textContent='Sobre mí'}
-function beginHold(){if(holding)return;holding=true;hold.classList.add('holding');$('.hold-label').textContent='Mantén pulsado';holdTimer=setTimeout(()=>{finishHold();$('#sobre').scrollIntoView({behavior:reduced.matches?'instant':'smooth'})},1500)}
-hold.addEventListener('pointerdown',e=>{if(e.button!==0)return;hold.setPointerCapture(e.pointerId);beginHold()});['pointerup','pointercancel','lostpointercapture'].forEach(type=>hold.addEventListener(type,finishHold));hold.addEventListener('keydown',e=>{if(['Enter',' '].includes(e.key)&&!e.repeat){e.preventDefault();beginHold()}});hold.addEventListener('keyup',finishHold);hold.addEventListener('contextmenu',e=>e.preventDefault());
 // Product views are authored illustrations, not invented client screenshots.
 function phoneShowcase(project){
  const shots=project[5].screenshots;
