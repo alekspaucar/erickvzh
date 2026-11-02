@@ -88,7 +88,8 @@
         ctx.globalAlpha = active ? .25 + .75 * front : .07; ctx.fillStyle = palette.ink; ctx.beginPath(); ctx.arc(p.x, p.y, size + (hovered === i ? 1.6 : 0), 0, Math.PI * 2); ctx.fill();
         if (!n.hub && !(hovered >= 0 ? active : p.depth < (mobile ? -.1 : .05))) continue;
         const fontSize = n.hub ? (mobile ? 11 : 12) : (mobile ? 10 : 10.5); ctx.font = `${n.hub ? 500 : 400} ${fontSize}px ${palette.font}`;
-        const half = ctx.measureText(n.label).width / 2, x = clamp(p.x, half + 3, width - half - 3), y = p.y + size + 5;
+        const label = window.portfolioI18n?.t(n.label) || n.label;
+        const half = ctx.measureText(label).width / 2, x = clamp(p.x, half + 3, width - half - 3), y = p.y + size + 5;
         candidates.push({ i, x, y, half, fontSize, alpha: active ? n.hub ? .5 + .5 * front : .25 + .75 * front : .06 });
       }
       const occupied = [];
@@ -97,7 +98,8 @@
         const box = { left: c.x - c.half - 3, right: c.x + c.half + 3, top: c.y - 2, bottom: c.y + c.fontSize + 3 };
         if (occupied.some(b => box.left < b.right && box.right > b.left && box.top < b.bottom && box.bottom > b.top)) continue;
         occupied.push(box); const node = nodes[c.i]; ctx.font = `${node.hub ? 500 : 400} ${c.fontSize}px ${palette.font}`;
-        ctx.globalAlpha = c.alpha; ctx.lineJoin = 'round'; ctx.lineWidth = 3.5; ctx.strokeStyle = palette.page; ctx.strokeText(node.label, c.x, c.y); ctx.fillStyle = node.hub ? palette.ink : palette.muted; ctx.fillText(node.label, c.x, c.y);
+        const label = window.portfolioI18n?.t(node.label) || node.label;
+        ctx.globalAlpha = c.alpha; ctx.lineJoin = 'round'; ctx.lineWidth = 3.5; ctx.strokeStyle = palette.page; ctx.strokeText(label, c.x, c.y); ctx.fillStyle = node.hub ? palette.ink : palette.muted; ctx.fillText(label, c.x, c.y);
       }
       ctx.globalAlpha = 1;
     }
@@ -134,6 +136,7 @@
     const sizeObserver = new ResizeObserver(resize); sizeObserver.observe(canvas);
     const visibilityObserver = new IntersectionObserver(entries => { visible = !!entries[0]?.isIntersecting; if (visible) request(); else { cancelAnimationFrame(raf); raf = 0; lastTime = 0; } }); visibilityObserver.observe(canvas);
     const themeObserver = new MutationObserver(request); themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class', 'data-theme'] }); themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme'] });
+    document.addEventListener('portfolio:languagechange', request);
     document.addEventListener('visibilitychange', request); media.addEventListener('change', request); resize();
     return function destroy() { destroyed = true; cancelAnimationFrame(raf); sizeObserver.disconnect(); visibilityObserver.disconnect(); themeObserver.disconnect(); listeners.forEach(([event, fn]) => canvas.removeEventListener(event, fn)); document.removeEventListener('visibilitychange', request); media.removeEventListener('change', request); canvas.style.touchAction = originalTouchAction; };
   };

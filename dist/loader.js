@@ -30,7 +30,7 @@
  const nextFrame=()=>new Promise(resolve=>requestAnimationFrame(resolve));
  async function reveal(){
   if(ending||!root.classList.contains('is-loading'))return;
-  ending=true;paint(100);overlay.setAttribute('aria-label','Portafolio listo');
+  ending=true;paint(100);overlay.setAttribute('aria-label',window.portfolioI18n?.t('Portafolio listo')||'Portafolio listo');
   await nextFrame();await nextFrame();
   root.classList.add('is-revealing');
   const finish=()=>{clearTimeout(window.portfolioLoadingTimeout);window.finishPortfolioLoading();};

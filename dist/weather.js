@@ -10,14 +10,14 @@ const STYLE = `
 .portfolio-weather .weather-layer{opacity:0;transition:opacity 1200ms ease-in-out}
 .portfolio-weather .weather-layer.is-active{opacity:1}
 .portfolio-weather .weather-haze{height:min(600px,100%);mask-image:linear-gradient(#000 45%,transparent);-webkit-mask-image:linear-gradient(#000 45%,transparent)}
-.portfolio-weather .weather-clouds{position:absolute;inset:0 0 auto;height:600px;max-height:100%;mask-image:linear-gradient(#000 55%,transparent);-webkit-mask-image:linear-gradient(#000 55%,transparent);background:linear-gradient(to bottom,#e0f0fd88,#eff7fe55 45%,transparent)}
+.portfolio-weather .weather-clouds{position:absolute;inset:0 0 auto;height:600px;max-height:100%;mask-image:linear-gradient(#000 55%,transparent);-webkit-mask-image:linear-gradient(#000 55%,transparent);background:linear-gradient(to bottom,#dceefba6,#f0f7fd66 45%,transparent)}
 .portfolio-weather .weather-cloud{position:absolute;left:-330px;width:288px;height:96px;animation:weather-cloud-drift var(--duration) linear var(--delay) infinite;transform:scale(var(--scale));opacity:.8}
 .portfolio-weather .weather-cloud i{position:absolute;display:block;border-radius:999px;background:#fff;filter:blur(15px)}
 .portfolio-weather .weather-cloud i:nth-child(1){left:24px;top:32px;width:160px;height:56px}
 .portfolio-weather .weather-cloud i:nth-child(2){left:80px;top:8px;width:112px;height:80px}
 .portfolio-weather .weather-cloud i:nth-child(3){left:144px;top:28px;width:112px;height:56px}
-.portfolio-weather.is-dark .weather-clouds{background:linear-gradient(to bottom,#1e293b55,#17203033 45%,transparent)}
-.portfolio-weather.is-dark .weather-cloud i{background:#cbd5e1;opacity:.1;filter:blur(20px)}
+.portfolio-weather.is-dark .weather-clouds{background:linear-gradient(to bottom,#51474b66,#2a262833 45%,transparent)}
+.portfolio-weather.is-dark .weather-cloud i{background:#cbc5c8;opacity:.1;filter:blur(20px)}
 .portfolio-weather .weather-rays{opacity:0;transition:opacity 1200ms ease-in-out}
 .portfolio-weather .weather-rays.is-active{opacity:1}
 @keyframes weather-cloud-drift{from{translate:-10vw 0}to{translate:calc(100vw + 520px) 0}}
@@ -186,17 +186,18 @@ class PortfolioWeather {
   drawHaze() {
     const ctx = this.hazeCtx, w = this.width, h = this.height;
     ctx.clearRect(0, 0, w, h);
-    const dim = this.scene === 'aurora' ? 1 : .5;
+    const dim = this.scene === 'aurora' ? 1 : .8;
     // Fill the entire canvas with a diffuse field. No clipped polygon edge:
     // each gradient becomes fully transparent before reaching its own radius.
     const cx = w * (.52 + Math.sin(this.time * .07) * .08);
     const cy = -h * .32;
     const radius = Math.max(w * .72, h * .9);
     const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
-    const ink = this.dark ? '126,127,135' : '158,162,174';
-    gradient.addColorStop(0, `rgba(${ink},${(this.dark ? .13 : .11) * dim})`);
-    gradient.addColorStop(.35, `rgba(${ink},${(this.dark ? .075 : .06) * dim})`);
-    gradient.addColorStop(.7, `rgba(${ink},${.018 * dim})`);
+    // Silver in daylight; a restrained warm smoke against the black night sky.
+    const ink = this.dark ? '116,100,106' : '146,146,151';
+    gradient.addColorStop(0, `rgba(${ink},${.30 * dim})`);
+    gradient.addColorStop(.35, `rgba(${ink},${.18 * dim})`);
+    gradient.addColorStop(.7, `rgba(${ink},${.028 * dim})`);
     gradient.addColorStop(1, `rgba(${ink},0)`);
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, w, h);
@@ -217,7 +218,7 @@ class PortfolioWeather {
         if(!mobile){this.splash(drop.x,base+this.wave[at]);this.velocity[at] += .22;this.water=Math.min(6,this.water+.004);}
         this.rain[i]=this.newDrop();
       }
-      ctx.strokeStyle=this.dark?`rgba(203,213,225,${drop.alpha})`:`rgba(100,116,139,${drop.alpha})`;
+      ctx.strokeStyle=this.dark?`rgba(205,205,210,${drop.alpha})`:`rgba(115,122,130,${drop.alpha})`;
       ctx.lineWidth=.75;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(drop.x,drop.y);ctx.lineTo(drop.x+drop.length*.12,drop.y-drop.length);ctx.stroke();
     }
     // Read the previous heights, then update all velocities, then all heights.
@@ -229,11 +230,11 @@ class PortfolioWeather {
     }
     for(let i=0;i<previous.length;i++)this.wave[i]=clamp(previous[i]+this.velocity[i],-2.5,2.5);
     if(!mobile&&this.water>.3){
-      ctx.fillStyle=this.dark?'rgba(98,130,169,.2)':'rgba(160,190,218,.23)';
+      ctx.fillStyle=this.dark?'rgba(146,147,155,.2)':'rgba(179,188,199,.23)';
       this.fillFloor(ctx,i=>h-this.water+this.wave[i]);
     }
     this.splashes=this.splashes.filter(s=>s.life>0);
-    ctx.fillStyle=this.dark?'#cbd5e1':'#64748b';
+    ctx.fillStyle=this.dark?'#cdced2':'#737b85';
     for(const s of this.splashes){s.vy+=900*dt;s.x+=s.vx*dt;s.y+=s.vy*dt;s.life-=dt*2.4;ctx.globalAlpha=Math.max(0,s.life)*.4;ctx.fillRect(s.x,s.y,1.3,1.3);}ctx.globalAlpha=1;
   }
   fillFloor(ctx, y) {
@@ -255,13 +256,13 @@ class PortfolioWeather {
         if(!mobile){const amount=f.radius*.5;this.depth[at]=Math.min(9,this.depth[at]+amount);if(at>0)this.depth[at-1]+=amount*.35;if(at<this.depth.length-1)this.depth[at+1]+=amount*.35;}
         this.snow[i]=this.newFlake();
       }
-      ctx.fillStyle=this.dark?`rgba(241,245,249,${.45+.1*f.radius})`:`rgba(130,142,158,${.4+.1*f.radius})`;ctx.beginPath();ctx.arc(f.x,f.y,f.radius,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle=this.dark?`rgba(243,243,245,${.45+.1*f.radius})`:`rgba(142,151,164,${.4+.1*f.radius})`;ctx.beginPath();ctx.arc(f.x,f.y,f.radius,0,Math.PI*2);ctx.fill();
     }
     for(let pass=0;pass<3;pass++)for(let i=0;i<this.depth.length-1;i++){
       const delta=this.depth[i]-this.depth[i+1];if(Math.abs(delta)<1.1)continue;
       const shift=(Math.abs(delta)-1.1)*.2*Math.sign(delta);this.depth[i]-=shift;this.depth[i+1]+=shift;
     }
-    if(!mobile&&Math.max(...this.depth)>.5){ctx.fillStyle=this.dark?'rgba(226,232,240,.3)':'rgba(226,232,240,.55)';this.fillFloor(ctx,i=>h-this.depth[i]);}
+    if(!mobile&&Math.max(...this.depth)>.5){ctx.fillStyle=this.dark?'rgba(232,232,237,.3)':'rgba(229,233,239,.55)';this.fillFloor(ctx,i=>h-this.depth[i]);}
   }
   setupRays() {
     const options={alpha:true,premultipliedAlpha:true,antialias:false,depth:false,stencil:false,powerPreference:'low-power'};
@@ -309,7 +310,7 @@ class PortfolioWeather {
     const spread=this.dark?.675:.765;
     const number=(name,n)=>gl.uniform1f(u[name],n),vec=(name,a,b,c)=>gl.uniform3f(u[name],a,b,c);
     gl.uniform2f(u.uResolution,this.rays.width,this.rays.height);number('uTime',this.time*(this.dark?.6:1));
-    if(this.dark){vec('uColorA',.918,.922,1);vec('uColorB',.929,.941,.961);}else{vec('uColorA',1,.824,.478);vec('uColorB',1,.914,.761);}
+    if(this.dark){vec('uColorA',1,.98,.96);vec('uColorB',.94,.96,1);}else{vec('uColorA',1,.90,.72);vec('uColorB',1,.96,.88);}
     number('uBlend',this.dark?.7:.55);number('uIntensity',1.2);number('uSpread',spread);number('uDensity',this.dark?5:12);number('uSharpness',this.dark?.5:.8);number('uFalloff',1.1);number('uGlow',this.dark?1.68:1.2);number('uSaturation',1);number('uDust',this.dark?.47:.5);number('uOpacity',this.dark?1:.42);number('uReveal',1);number('uLight',this.dark?0:1);vec('uFrame',0,0,0);number('uAim',0);vec('uFocus',0,Math.max(.06,spread*.25),0);number('uSway',1);number('uFadeBottom',1);number('uLightInk',this.dark?.75:1);gl.drawArrays(gl.TRIANGLES,0,3);
   }
   drawSoftwareRays(dt) {
@@ -328,7 +329,7 @@ class PortfolioWeather {
     const noise=(x,y)=>{const ix=Math.floor(x),iy=Math.floor(y),fx=x-ix,fy=y-iy;const wx=fx*fx*fx*(fx*(fx*6-15)+10),wy=fy*fy*fy*(fy*(fy*6-15)+10);return mix(mix(hash(ix,iy),hash(ix+1,iy),wx),mix(hash(ix,iy+1),hash(ix+1,iy+1),wx),wy);};
     const dark=this.dark,t=this.time*(dark?.6:1),spread=dark?.675:.765,density=dark?5:12,sharpness=dark?.5:.8,blend=dark?.7:.55;
     const sourceX=aspect*.5+.1,sourceY=.62;
-    const heading=-2.48+.035*Math.sin(t*.21),colorA=dark?[.918,.922,1]:[1,.824,.478],colorB=dark?[.929,.941,.961]:[1,.914,.761];
+    const heading=-2.48+.035*Math.sin(t*.21),colorA=dark?[1,.98,.96]:[1,.90,.72],colorB=dark?[.94,.96,1]:[1,.96,.88];
     const shafts=(u,tt,seed)=>{const sway=.4*Math.sin(tt*.31+seed)+.24*Math.sin(tt*.17+seed*2.3),n=.7*noise(u+sway+seed,tt*.3)+.3*noise(u*2.4+sway*1.5+seed*1.7,tt*.45+3),width=mix(.5,.1,sharpness);return mix(.05,1,smooth(.5-width,.5+width,n));};
     for(let y=0;y<h;y++)for(let x=0;x<w;x++){
       const qx=(x+.5-w*.5)/h,qy=(h*.5-y-.5)/h,vx=qx-sourceX,vy=qy-sourceY,r=Math.hypot(vx,vy),angle=((Math.atan2(vy,vx)-heading+Math.PI)%(Math.PI*2)+Math.PI*2)%(Math.PI*2)-Math.PI;

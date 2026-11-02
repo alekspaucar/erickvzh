@@ -2,20 +2,21 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#090909"><meta name="description" content="Alexander Vizhnay, Alex. Desarrollo web, sistemas y curiosidad por la seguridad. Mi historia, proyectos y trabajo desde Cuenca, Ecuador.">
+<meta name="theme-color" content="#ffffff"><meta name="description" content="Alexander Vizhnay, Alex. Diseño y desarrollo de plataformas web, APIs e infraestructura. Proyectos y mantenimiento de sistemas desde Cuenca, Ecuador.">
 <title>Alex — Desarrollo web y sistemas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%23090909'/%3E%3Ctext x='8' y='29' fill='white' font-family='Arial' font-size='28'%3Ea.%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="assets/sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/alex-avatar.png" as="image" fetchpriority="high">
 <link rel="stylesheet" href="style.css?v=16">
 <link rel="stylesheet" href="loader.css?v=1">
-<script>try{document.documentElement.dataset.theme=localStorage.getItem('alex-theme')||'dark'}catch{document.documentElement.dataset.theme='dark'}</script>
+<link rel="stylesheet" href="refinements.css?v=1">
+<script>try{document.documentElement.dataset.theme=localStorage.getItem('alex-theme')||'light'}catch{document.documentElement.dataset.theme='light'}</script>
 <script>
 document.documentElement.classList.add('is-loading');
 window.finishPortfolioLoading=()=>{document.documentElement.classList.remove('is-loading','is-revealing');document.getElementById('portfolio-content')?.removeAttribute('inert');};
 window.portfolioLoadingTimeout=setTimeout(window.finishPortfolioLoading,10000);
 </script>
-<script src="loader.js?v=1" defer></script>
+<script src="loader.js?v=2" defer></script>
 </head>
 <body>
 <div class="entry-loader" id="entry-loader" role="status" aria-live="polite" aria-label="Iniciando el portafolio de Alex">
@@ -44,6 +45,10 @@ window.portfolioLoadingTimeout=setTimeout(window.finishPortfolioLoading,10000);
 <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></symbol>
 <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11a9 9 0 0 1-13 8l-5 2 1-6a9 9 0 1 1 17-4z"/></symbol>
 </defs></svg>
+<details class="language-switch glass">
+<summary aria-label="Elegir idioma" aria-controls="language-options"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a17 17 0 0 1 0 18 17 17 0 0 1 0-18Z"/></svg><span id="language-current">ES</span><svg class="language-chevron" aria-hidden="true" viewBox="0 0 16 16"><path d="m4 6 4 4 4-4"/></svg></summary>
+<div class="language-options" id="language-options" role="group" aria-label="Idioma de la página"><button type="button" data-language="es" lang="es" aria-pressed="true"><span>Español</span><span aria-hidden="true">ES</span></button><button type="button" data-language="en" lang="en" aria-pressed="false"><span>English</span><span aria-hidden="true">EN</span></button></div>
+</details>
 <header class="site-header">
 <div class="nav-cluster">
 <nav class="glass dock" aria-label="Principal">
@@ -62,9 +67,9 @@ window.portfolioLoadingTimeout=setTimeout(window.finishPortfolioLoading,10000);
 <main>
 <section id="inicio" class="hero">
 <div class="hero-grid content-width">
-<div class="hero-intro"><h1 aria-label="Todo empezó con una computadora."><span id="animated-role" aria-hidden="true">Todo empezó<br>con una computadora.</span></h1><p class="hero-profession">Desarrollo web, sistemas y curiosidad por la seguridad.</p><div class="hero-actions"><a class="hold-button" id="hold-about" href="#sobre"><span class="hold-fill" aria-hidden="true"></span><span class="hold-label">Sobre mí</span></a><a class="metal-button" href="#proyectos">Ver proyectos <svg><use href="#i-arrow"/></svg></a></div></div>
+<div class="hero-intro"><h1 aria-label="Diseñador de plataformas web"><span id="animated-role" aria-hidden="true">Diseñador de<br>plataformas web</span></h1><p class="hero-profession">Interfaces, APIs y sistemas que conectan tu operación.</p><div class="hero-actions"><a class="hold-button" id="hold-about" href="#sobre"><span class="hold-fill" aria-hidden="true"></span><span class="hold-label">Sobre mí</span></a><a class="metal-button" href="#proyectos">Ver proyectos <svg><use href="#i-arrow"/></svg></a></div></div>
 <div class="avatar-wrap" role="img" aria-label="Avatar de Alexander Vizhnay"><div id="avatar-art"><img class="avatar-fallback" src="assets/alex-avatar.png" alt="" width="1254" height="1254" fetchpriority="high" decoding="async"></div></div>
-<div class="hero-highlights"><button class="highlight expanded" aria-expanded="true"><span>Hola, soy Alex</span><p>De niño abría mi computadora para entenderla. Hoy construyo sistemas web, cuido servidores y sigo aprendiendo con la misma curiosidad.</p></button><button class="highlight" aria-expanded="false"><span>De Linux a mis propios proyectos</span><p>Empecé probando Linux y particiones de disco. Después descubrí la programación, las plataformas web y las ganas de crear mis propias herramientas.</p></button><button class="highlight" aria-expanded="false"><span>Entender también es proteger</span><p>Estudio Computación y Ciberseguridad. Quiero especializarme en seguridad e inteligencia artificial, sin dejar de aprender haciendo.</p></button></div>
+<div class="hero-highlights"><div class="highlight expanded" role="button" tabindex="0" aria-labelledby="highlight-web-title" aria-expanded="true" aria-controls="highlight-web"><span id="highlight-web-title">Diseño y desarrollo web</span><p id="highlight-web">Interfaces adaptables con Angular, React y TypeScript. Del diseño de la experiencia a una plataforma funcional, clara y accesible.</p></div><div class="highlight" role="button" tabindex="0" aria-labelledby="highlight-backend-title" aria-expanded="false" aria-controls="highlight-backend"><span id="highlight-backend-title">Backend, APIs y datos</span><p id="highlight-backend">APIs REST con Python, Flask y Django. Integración de bases de datos y procesos de gestión para conectar la interfaz con la operación.</p></div><div class="highlight" role="button" tabindex="0" aria-labelledby="highlight-server-title" aria-expanded="false" aria-controls="highlight-server"><span id="highlight-server-title">Servidores y mantenimiento</span><p id="highlight-server">Despliegue y soporte de aplicaciones en Linux. Actualizaciones, diagnóstico de incidencias y mantenimiento continuo de sistemas como ProPrint.</p></div></div>
 </div><a class="scroll-orbit" href="#sobre" aria-label="Conocer a Alex"><span>↓</span></a>
 </section>
 <section id="sobre" class="about content-width section-frame" aria-labelledby="about-title">
@@ -88,5 +93,5 @@ window.portfolioLoadingTimeout=setTimeout(window.finishPortfolioLoading,10000);
 <div class="email-toast" id="email-toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
 <dialog id="details" aria-labelledby="detail-title"><button class="dialog-close" aria-label="Cerrar">×</button><span class="quiet-label" id="detail-type"></span><h2 id="detail-title"></h2><p id="detail-description"></p><div id="detail-visual"></div><div id="detail-technical"></div><p class="editorial-note" id="detail-note">Las imágenes reales y la demostración se incorporarán próximamente.</p><a id="detail-source" class="text-button detail-source" target="_blank" rel="noopener noreferrer" hidden>Ver cronograma completo ↗</a><a class="text-button" href="mailto:alexpaucar.887@gmail.com">Conversemos sobre este proyecto <svg><use href="#i-arrow"/></svg></a></dialog>
 </div>
-<script src="projects.js?v=14"></script><script src="weather.js?v=11"></script><script src="skills.js?v=9"></script><script src="hands.js?v=9"></script><script src="avatar.js?v=2"></script><script src="app.js?v=19"></script>
+<script src="projects.js?v=14"></script><script src="projects-en.js?v=1"></script><script src="i18n.js?v=1"></script><script src="weather.js?v=12"></script><script src="skills.js?v=10"></script><script src="hands.js?v=9"></script><script src="avatar.js?v=2"></script><script src="app.js?v=20"></script>
 </body></html>

@@ -1,0 +1,46 @@
+/* Neutral glass, letter evaporation and tactile buttons from Alex's video. */
+:root{--bg:#fff;--fg:#111113;--muted:#737376;--surface:#f5f5f6;--line:#e4e4e7;--glass:#ffffff66;--glass-border:#ffffffbf}
+:root[data-theme=dark]{--bg:#090909;--fg:#fafafa;--muted:#a2a0a1;--surface:#171617;--line:#302d30;--glass:#f5edf31a;--glass-border:#ffffff30}
+.glass{box-shadow:0 12px 35px -10px #20212b35,inset 0 1px 0 #ffffffb3,inset 0 -1px 0 #fff3}
+.hero-intro h1{min-height:2.25em;line-height:1.08;letter-spacing:-.045em}
+.letter{animation-duration:720ms;will-change:filter,opacity,transform}
+.hero-profession{max-width:33ch}
+.hero-highlights{gap:22px;min-height:230px;justify-content:center}
+.highlight{cursor:default;outline-offset:7px;border-radius:3px;transition:color .25s}
+.highlight:focus-visible{outline:1px solid var(--muted)}
+.highlight p{font-size:14px;line-height:1.65;max-width:39ch}
+.highlight.expanded p{max-height:210px}
+.metal-button{background:var(--bg);box-shadow:0 5px 14px -6px #0005,inset 0 -2px 1px #0002;transition:box-shadow .3s,transform .3s}
+.metal-button::before{background:conic-gradient(from var(--shine),#aaa 0deg,#fdfdfd 40deg,#999 80deg,#dedede 145deg,#555 200deg,#fff 245deg,#bbb 280deg,#aaa 360deg);animation-duration:5s}
+.metal-button:hover{box-shadow:0 9px 22px -9px #0006,inset 0 -2px 1px #0002;transform:translateY(-1px)}
+.metal-button svg{transition:transform .3s}.metal-button:hover svg{transform:translate(2px,-2px)}
+.hold-fill{inset:auto -18% -29px;height:36px;transform:translateX(-32%);border-radius:50%;background:#b2b8bf38;transition:transform .7s cubic-bezier(.2,.7,.2,1),bottom .6s}
+.hold-button:hover .hold-fill,.hold-button:focus-visible .hold-fill{bottom:-21px;transform:translateX(25%) rotate(-8deg);background:#c1dceb80}
+[data-theme=dark] .hold-button:hover .hold-fill,[data-theme=dark] .hold-button:focus-visible .hold-fill{background:#8298aa48}
+.contact-pill{position:relative;isolation:isolate;overflow:hidden}
+.pill-label{transition:opacity .18s,transform .35s}
+.pill-trail{position:absolute;inset:4px;border-radius:inherit;background:var(--inverse);color:var(--contrast);display:flex;align-items:center;justify-content:flex-start;gap:12px;padding:0 14px;opacity:0;pointer-events:none;transition:opacity .25s}
+.pill-trail .dot-emblem{width:30px;height:36px;min-width:30px;border-radius:0;background:transparent;color:inherit;animation:dot-march 1.6s linear infinite}
+.pill-trail .dot-emblem i{left:12px;top:16px;width:3px;height:3px}
+.pill-trail .dot-emblem:nth-child(2){opacity:.8}.pill-trail .dot-emblem:nth-child(3){opacity:.6}.pill-trail .dot-emblem:nth-child(4){opacity:.4}.pill-trail .dot-emblem:nth-child(n+5){opacity:.2}
+.contact-pill:hover>.dot-emblem,.contact-pill:focus-visible>.dot-emblem{opacity:0;transform:translateX(35px)}
+.contact-pill:hover .pill-label,.contact-pill:focus-visible .pill-label{opacity:0;transform:translateX(14px)}
+.contact-pill:hover .pill-trail,.contact-pill:focus-visible .pill-trail{opacity:1}
+.contact-pill:hover .pill-trail .dot-emblem{transform:none;transition:none}
+@keyframes dot-march{from{translate:-42px 0}to{translate:0 0}}
+.language-switch{position:fixed;left:max(24px,env(safe-area-inset-left));top:24px;z-index:85;border-radius:26px;font-size:12px}
+.language-switch summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:9px;height:52px;padding:0 15px;user-select:none}
+.language-switch summary::-webkit-details-marker{display:none}
+.language-switch summary>svg{width:17px;height:17px}.language-switch summary>.language-chevron{width:12px;height:12px;transition:rotate .25s}
+.language-switch[open] .language-chevron{rotate:180deg}
+.language-options{position:absolute;top:calc(100% + 10px);left:0;width:170px;padding:6px;background:color-mix(in srgb,var(--bg) 94%,transparent);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 35px -15px #0005;backdrop-filter:blur(24px);animation:panel-in .18s ease-out}
+.language-options button{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;padding:12px;border-radius:12px;text-align:left;font-size:13px}
+.language-options button>span:last-child{font-size:10px;color:var(--muted)}
+.language-options button:hover,.language-options button[aria-pressed=true]{background:var(--surface)}
+.language-options button[aria-pressed=true]>span:first-child::after{content:' ✓';font-size:11px;margin-left:6px}
+@media(max-width:1100px) and (min-width:901px){.language-switch{left:14px}.language-switch summary{padding-inline:11px;gap:6px}}
+@media(max-width:1100px){.dock:hover .dock-link span,.dock:focus-within .dock-link span{max-width:0;opacity:0;margin:0}}
+@media(max-width:900px){.language-switch{top:14px;left:16px;border-radius:24px}.language-switch summary{height:42px;padding-inline:13px}.site-header{top:72px}.nav-preview{top:58px}.hero{padding-top:155px}.hero-highlights{min-height:240px}.hero-intro h1{min-height:2.3em}}
+@media(max-width:500px){.hero{padding-top:160px}.hero-grid{gap:24px}.hero-intro h1{font-size:clamp(26px,7.6vw,34px)}.hero-highlights{min-height:220px;gap:18px}.highlight{font-size:14px}.highlight p{font-size:13px;max-width:100%}.hero-highlights .highlight.expanded p{max-height:180px}.language-options{width:160px}.hero-actions{gap:10px}}
+@media(max-width:360px){.site-header .contact-pill .pill-label,.site-header .contact-pill .pill-trail{display:none}.site-header .contact-pill:hover>.dot-emblem{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.pill-trail .dot-emblem{animation:none}.metal-button:hover{transform:none}.pill-trail{display:none}.contact-pill:hover>.dot-emblem,.contact-pill:focus-visible>.dot-emblem{opacity:1;transform:none}.contact-pill:hover .pill-label,.contact-pill:focus-visible .pill-label{opacity:1;transform:none}}
