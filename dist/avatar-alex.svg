@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1254 1254" aria-hidden="true">
+ <defs>
+  <radialGradient id="alex-skin" cx="50%" cy="45%" r="65%"><stop stop-color="#faf7f4"/><stop offset="1" stop-color="#faf7f5"/></radialGradient>
+  <filter id="alex-soft-edge" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="2"/></filter>
+ </defs>
+ <g>
+  <image href="assets/alex-avatar.png" width="1254" height="1254"/>
+  <!-- The supplied portrait stays intact; these eye layers retain cursor tracking. -->
+  <ellipse cx="532" cy="486" rx="63" ry="33" fill="url(#alex-skin)" filter="url(#alex-soft-edge)"/>
+  <ellipse cx="720" cy="486" rx="63" ry="33" fill="url(#alex-skin)" filter="url(#alex-soft-edge)"/>
+  <g class="alex-eye alex-eye-left">
+   <ellipse class="alex-pupil" cx="540" cy="488" rx="20" ry="21" fill="#1a1a1a"/>
+   <path d="M482 486Q530 450 579 484" fill="none" stroke="#1a1a1a" stroke-width="9" stroke-linecap="round"/>
+  </g>
+  <g class="alex-eye alex-eye-right">
+   <ellipse class="alex-pupil" cx="712" cy="488" rx="20" ry="21" fill="#1a1a1a"/>
+   <path d="M672 484Q720 450 771 486" fill="none" stroke="#1a1a1a" stroke-width="9" stroke-linecap="round"/>
+  </g>
+ </g>
+</svg>
