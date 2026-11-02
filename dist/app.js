@@ -40,7 +40,7 @@ function paintTitle(phase='') {
 function titleCycle(){titleTimer=setTimeout(()=>{if(document.hidden||reduced.matches||$('#inicio').getBoundingClientRect().bottom<0)return titleCycle();paintTitle('vapor-out');titleTimer=setTimeout(()=>{roleIndex=(roleIndex+1)%roles.length;paintTitle('vapor-in');titleTimer=setTimeout(()=>{paintTitle();titleCycle()},1800)},1900)},3000)}
 paintTitle();if(!reduced.matches)titleCycle();reduced.addEventListener('change',()=>{clearTimeout(titleTimer);paintTitle();if(!reduced.matches)titleCycle()});
 // One continuous portrait with depth, eye tracking and a connected neck.
-window.initPortfolioAvatar($('#avatar-art'),reduced);
+window.portfolioAvatarReady=window.initPortfolioAvatar($('#avatar-art'),reduced).catch(()=>{});
 // Accordion copy, exactly one expanded highlight at a time.
 $$('.highlight').forEach(button=>button.addEventListener('click',()=>{$$('.highlight').forEach(other=>{const active=button===other;other.classList.toggle('expanded',active);other.setAttribute('aria-expanded',String(active))})}));
 // Product views are authored illustrations, not invented client screenshots.

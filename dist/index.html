@@ -6,10 +6,29 @@
 <title>Alex — Desarrollo web y sistemas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%23090909'/%3E%3Ctext x='8' y='29' fill='white' font-family='Arial' font-size='28'%3Ea.%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="assets/sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/alex-avatar.png" as="image" fetchpriority="high">
 <link rel="stylesheet" href="style.css?v=16">
+<link rel="stylesheet" href="loader.css?v=1">
 <script>try{document.documentElement.dataset.theme=localStorage.getItem('alex-theme')||'dark'}catch{document.documentElement.dataset.theme='dark'}</script>
+<script>
+document.documentElement.classList.add('is-loading');
+window.finishPortfolioLoading=()=>{document.documentElement.classList.remove('is-loading','is-revealing');document.getElementById('portfolio-content')?.removeAttribute('inert');};
+window.portfolioLoadingTimeout=setTimeout(window.finishPortfolioLoading,10000);
+</script>
+<script src="loader.js?v=1" defer></script>
 </head>
 <body>
+<div class="entry-loader" id="entry-loader" role="status" aria-live="polite" aria-label="Iniciando el portafolio de Alex">
+<div class="entry-loader-inner">
+<svg class="loader-keyboard" viewBox="0 0 620 350" aria-hidden="true">
+<g class="keyboard-base" id="loader-keyboard-base"></g>
+<g id="loader-keys"></g>
+</svg>
+<div class="loader-meter"><div class="loader-track"><span id="loader-bar"></span></div><div class="loader-caption"><span>Iniciando</span><span id="loader-count" aria-hidden="true">000</span></div></div>
+</div>
+</div>
+<div id="portfolio-content">
+<script>document.getElementById('portfolio-content').inert=document.documentElement.classList.contains('is-loading');</script>
 <a class="skip" href="#inicio">Ir al contenido</a>
 <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg"><defs>
 <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-8H9v8H4a1 1 0 0 1-1-1z"/></symbol>
@@ -44,7 +63,7 @@
 <section id="inicio" class="hero">
 <div class="hero-grid content-width">
 <div class="hero-intro"><h1 aria-label="Todo empezó con una computadora."><span id="animated-role" aria-hidden="true">Todo empezó<br>con una computadora.</span></h1><p class="hero-profession">Desarrollo web, sistemas y curiosidad por la seguridad.</p><div class="hero-actions"><a class="hold-button" id="hold-about" href="#sobre"><span class="hold-fill" aria-hidden="true"></span><span class="hold-label">Sobre mí</span></a><a class="metal-button" href="#proyectos">Ver proyectos <svg><use href="#i-arrow"/></svg></a></div></div>
-<div class="avatar-wrap" role="img" aria-label="Avatar de Alexander Vizhnay"><div id="avatar-art"></div></div>
+<div class="avatar-wrap" role="img" aria-label="Avatar de Alexander Vizhnay"><div id="avatar-art"><img class="avatar-fallback" src="assets/alex-avatar.png" alt="" width="1254" height="1254" fetchpriority="high" decoding="async"></div></div>
 <div class="hero-highlights"><button class="highlight expanded" aria-expanded="true"><span>Hola, soy Alex</span><p>De niño abría mi computadora para entenderla. Hoy construyo sistemas web, cuido servidores y sigo aprendiendo con la misma curiosidad.</p></button><button class="highlight" aria-expanded="false"><span>De Linux a mis propios proyectos</span><p>Empecé probando Linux y particiones de disco. Después descubrí la programación, las plataformas web y las ganas de crear mis propias herramientas.</p></button><button class="highlight" aria-expanded="false"><span>Entender también es proteger</span><p>Estudio Computación y Ciberseguridad. Quiero especializarme en seguridad e inteligencia artificial, sin dejar de aprender haciendo.</p></button></div>
 </div><a class="scroll-orbit" href="#sobre" aria-label="Conocer a Alex"><span>↓</span></a>
 </section>
@@ -68,5 +87,6 @@
 <a class="glass contact-bubble" href="https://wa.me/593990722065" target="_blank" rel="noopener noreferrer" aria-label="Hablar con Alex por WhatsApp"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg><span class="bubble-label">Hablemos por WhatsApp</span></a>
 <div class="email-toast" id="email-toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
 <dialog id="details" aria-labelledby="detail-title"><button class="dialog-close" aria-label="Cerrar">×</button><span class="quiet-label" id="detail-type"></span><h2 id="detail-title"></h2><p id="detail-description"></p><div id="detail-visual"></div><div id="detail-technical"></div><p class="editorial-note" id="detail-note">Las imágenes reales y la demostración se incorporarán próximamente.</p><a id="detail-source" class="text-button detail-source" target="_blank" rel="noopener noreferrer" hidden>Ver cronograma completo ↗</a><a class="text-button" href="mailto:alexpaucar.887@gmail.com">Conversemos sobre este proyecto <svg><use href="#i-arrow"/></svg></a></dialog>
-<script src="projects.js?v=14"></script><script src="weather.js?v=11"></script><script src="skills.js?v=9"></script><script src="hands.js?v=9"></script><script src="avatar.js?v=1"></script><script src="app.js?v=18"></script>
+</div>
+<script src="projects.js?v=14"></script><script src="weather.js?v=11"></script><script src="skills.js?v=9"></script><script src="hands.js?v=9"></script><script src="avatar.js?v=2"></script><script src="app.js?v=19"></script>
 </body></html>

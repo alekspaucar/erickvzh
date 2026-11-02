@@ -69,16 +69,21 @@ function continuousSurface(canvas,image){
 }
 
 window.initPortfolioAvatar=async(host,reduced)=>{
- host.innerHTML='<img class="avatar-fallback" src="assets/alex-avatar.png" alt="">';
- const image=new Image();image.src='assets/alex-avatar.png';
- try{await image.decode();}catch{return;}
+ const image=host.querySelector('.avatar-fallback')||new Image();
+ if(!image.parentNode){image.className='avatar-fallback';image.alt='';image.src='assets/alex-avatar.png';host.append(image);}
+ try{await image.decode();}catch{host.textContent='a.';host.classList.add('avatar-placeholder');host.dataset.avatarRenderer='placeholder';return;}
  const canvas=document.createElement('canvas');canvas.className='avatar-3d';canvas.setAttribute('aria-hidden','true');
  let render;
  try{render=continuousSurface(canvas,image);host.replaceChildren(canvas);host.dataset.avatarRenderer='continuous-webgl';}
  catch{
-  const response=await fetch('avatar-alex.svg?v=3');if(!response.ok)return;host.innerHTML=await response.text();
-  host.dataset.avatarRenderer='continuous-perspective';
-  render=(x,y,blink)=>{host.style.setProperty('--look',x.toFixed(3));host.style.setProperty('--look-y',y.toFixed(3));host.style.setProperty('--blink',blink.toFixed(3));};
+  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),2500);
+  try{
+   const response=await fetch('avatar-alex.svg?v=3',{signal:controller.signal});if(!response.ok)throw Error('Portrait fallback unavailable');
+   const svg=await response.text();host.innerHTML=svg;
+   host.dataset.avatarRenderer='continuous-perspective';
+   render=(x,y,blink)=>{host.style.setProperty('--look',x.toFixed(3));host.style.setProperty('--look-y',y.toFixed(3));host.style.setProperty('--blink',blink.toFixed(3));};
+  }catch{host.replaceChildren(image);host.dataset.avatarRenderer='static';return;}
+  finally{clearTimeout(timeout);}
  }
  let targetX=0,targetY=0,x=0,y=0,last=0,visible=true;
  const lookAt=event=>{const b=host.getBoundingClientRect();targetX=Math.max(-1,Math.min(1,(event.clientX-b.left-b.width/2)/Math.max(140,b.width*.9)));targetY=Math.max(-1,Math.min(1,(event.clientY-b.top-b.height*.39)/Math.max(120,b.height*.75)));};
@@ -92,6 +97,7 @@ window.initPortfolioAvatar=async(host,reduced)=>{
   const a=reduced.matches?0:x,b=reduced.matches?0:y;
   render(a,b,reduced.matches?1:blink);host.dataset.lookX=a.toFixed(3);host.dataset.lookY=b.toFixed(3);
  }
- render(0,0,1);requestAnimationFrame(frame);
+ try{render(0,0,1);}catch{host.replaceChildren(image);host.dataset.avatarRenderer='static';return;}
+ requestAnimationFrame(frame);
 };
 })();
